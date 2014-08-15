@@ -2,6 +2,7 @@ golang的一些学习体会
 ================================
 golang目录
 
+[[
 src
   cmd  //命令工具
     5a     //arm 汇编编译器
@@ -30,3 +31,4 @@ src
 		objectdump  //工具objectdump
 		pack   //工具 pack
 		yacc   //工具 yacc    
+]]
