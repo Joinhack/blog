@@ -16,9 +16,9 @@ golang目录
 			8c     //386 C语言编译器
 			8g     //386 GO语言编译器
 			8l     //386 连接器
-			addr2line  //
+			addr2line  //工具addr2line
 			api
-			cc     //C语言编译器
+			cc     //C语言编译器 (5c 6c 8c)的公用部分代码。
 			cgo    //工具cgo
 			dist   
 			fix    //工具fix
@@ -26,7 +26,7 @@ golang目录
 			go     //go 命令
 			gofmt  //go fmt
 			ld     //连接器
-			nm     //
-			objectdump  //工具objectdump
+			nm     //工具nm 显示符号名
+			objectdump  //工具objectdump 
 			pack   //工具 pack
 			yacc   //工具 yacc    
