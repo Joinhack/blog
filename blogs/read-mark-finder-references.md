@@ -23,4 +23,6 @@ not a given value in that region is a reference."
 
 1.标记法(tagging) 值本身携带自描述信息
 
-2.stack map 通过编译器找出偏移信息
+2.stack map 通过编译器找出偏移信息. 
+
+stack map 方式的 倒是常见 java使用的OopMap.
