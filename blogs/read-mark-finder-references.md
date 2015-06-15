@@ -33,9 +33,13 @@ stack map 方式的 倒是常见 java使用的OopMap. golang 使用的BitVector�
 
 lua 是通过将所有GC对象都放入一个链表 这样来避开finder references
 /*
+
 ** create a new collectable object (with given type and size) and link
+
 ** it to 'allgc' list.
+
 */
+
 GCObject *luaC_newobj (lua_State *L, int tt, size_t sz)
 
 
