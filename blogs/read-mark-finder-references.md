@@ -25,4 +25,23 @@ not a given value in that region is a reference."
 
 2.stack map 通过编译器找出偏移信息. 
 
-stack map 方式的 倒是常见 java使用的OopMap.
+stack map 方式的 倒是常见 java使用的OopMap. golang 使用的BitVector结构（// Information from the compiler about the layout of stack frames.） 
+
+
+
+这种强类型语言通过编译器的帮助生成相应的信息。那如果是那些弱类型语言（比如lua, javascript）会怎办啦？他们在finder references 会怎么做啦？
+
+lua 是通过将所有GC对象都放入一个链表 这样来避开finder references
+/*
+** create a new collectable object (with given type and size) and link
+** it to 'allgc' list.
+*/
+GCObject *luaC_newobj (lua_State *L, int tt, size_t sz)
+
+
+
+
+
+
+
+
