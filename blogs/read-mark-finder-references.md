@@ -40,6 +40,10 @@ lua 是通过将所有GC对象都放入一个链表 这样来避开finder refere
 	GCObject *luaC_newobj (lua_State *L, int tt, size_t sz)
 
 
+在阅读[V8设计](https://developers.google.com/v8/design?csw=1#efficient-garbage-collection)的时候发现V8居然被设计成为精准GC方式。原文"always knows exactly where all objects and pointers are in memory. This avoids falsely identifying objects as pointers which can result in memory leaks."
+
+
+
 
 
 
