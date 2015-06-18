@@ -40,7 +40,8 @@ lua 是通过将所有GC对象都放入一个链表 这样来避开finder refere
 	GCObject *luaC_newobj (lua_State *L, int tt, size_t sz)
 
 
-在阅读[V8设计](https://developers.google.com/v8/design?csw=1#efficient-garbage-collection)的时候发现V8居然被设计成为精准GC方式。原文"always knows exactly where all objects and pointers are in memory. This avoids falsely identifying objects as pointers which can result in memory leaks."
+在阅读[V8设计](https://developers.google.com/v8/design?csw=1#efficient-garbage-collection)的时候发现V8居然被设计成为精准GC方式。原文"always knows exactly where all objects and pointers are in memory. This avoids falsely identifying objects as pointers which can result in memory leaks." 而文章[V8 GC 教材](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection)中描述V8通过标记法来完成的精准GC。原文"Tagged pointers - With this approach, we reserve a bit at the end of each word to indicate whether it is pointer or data. This approach requires limited compiler support, but it's simple to implement while being fairly efficient. V8 takes this approach"
+
 
 
 
