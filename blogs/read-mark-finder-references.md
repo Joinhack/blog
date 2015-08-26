@@ -3,10 +3,10 @@ title: 读书笔记
 date: '2015-06-05'
 description:
 categories:
-- read mark
+- read-mark
 - Blog
 tags:
-- read mark
+- read-mark gc
 ---
 
 保守GC(conservative collector) 的缺点
