@@ -1,6 +1,6 @@
 ---
 title: stack
-date: '2015-9-30'
+date: '2015-09-25'
 description:
 categories:
 - read-mark
@@ -9,7 +9,7 @@ tags:
 - stack
 ---
 
-![Contiguous stack](https://docs.google.com/document/d/1wAaf1rYoM4S4gtnPh0zOlGzWtrZFQ5suE8qr2sD8uWQ/pub)
+[Contiguous stack](https://docs.google.com/document/d/1wAaf1rYoM4S4gtnPh0zOlGzWtrZFQ5suE8qr2sD8uWQ/pub)
 
 
 split stack原理与问题
