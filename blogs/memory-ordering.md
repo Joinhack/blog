@@ -32,12 +32,118 @@ asm volatile("mfence" ::: "memory");
 
 更多详细的需要查看[Memory Ordering](https://en.wikipedia.org/wiki/Memory_ordering)
 
+
+------------------------------------------------
+
+
+编译时Memory Ordering
+------------------------
+
+编译时的reordering发生的原因是编译进行性能优化产生的。
+
+通过下面例子来重现编译器的reordering
+
+测试环境:
+	
+	* gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-3)
+	* CentOS Linux release 6.0 (Final)
+
+代码
+```cpp
+int A, B;
+
+void test()
+{
+    A = B + 1;
+    B = 0;
+}
+```
+
+首先来看看在不使用优化参数的情况生成的指令， 使用以下命令。
+
+```shell
+$gcc -masm=intel  -S -o - test.c
+```
+
+输出的结果(关键部分)
+
+```asm
+mov	eax, DWORD PTR B[rip]  #将B放入寄存器eax
+add	eax, 1                 #寄存器eax加1，结果还是在eax
+mov	DWORD PTR A[rip], eax  #将eax值放入A
+mov	DWORD PTR B[rip], 0    #将0 放入B
+```
+
+这里就是未乱序的情况下的输出。前三句完成操作A = B+1， 最后一句完成B = 0
+
+
+下面使用优化参数-O2
+
+```shell
+$gcc -masm=intel -O2 -S -o - test.c
+```
+
+输出的结果(关键部分)
+
+
+```asm
+mov	eax, DWORD PTR B[rip]  #将B放入寄存器eax
+mov	DWORD PTR B[rip], 0    #将0 放入B
+add	eax, 1                 #寄存器eax加1，结果还是在eax	
+mov	DWORD PTR A[rip], eax  #将eax值放入A
+```
+
+
+这里就是乱序后的输出。 
+B = 0的操作， 插入了到中间， 这个中间的意思是完成整个操作后对A进行复制看做一个操作。
+
+编译器为什么可以这么做啦？
+
+我们可以看到就算乱序后，test方法返回时，最终结果是一致的，并不影响最终结果, 因此编译器可以放心大胆的去乱序进行性能优化。
+
+
+让编辑器reordering 失效， 可以才用上面说的到的方法，插入asm volatile("" ::: "memory");
+
+```cpp
+   A = B + 1;
+   asm volatile("" ::: "memory");
+   B = 0;
+```
+
+再来看看结果。
+
+```shell
+$gcc -masm=intel -O2 -S -o - test.c
+
+
+...
+
+mov	eax, DWORD PTR B[rip]
+add	eax, 1
+mov	DWORD PTR A[rip], eax
+mov	DWORD PTR B[rip], 0
+
+...
+```
+
+结果和期待一致.
+
+更加详细的说明可以参考[memory-ordering-at-compile-time](http://preshing.com/20120625/memory-ordering-at-compile-time/)
+
+------------------------------------------------
+
+CPU运行时的Memory Ordering
+------------------------
+
 [Memory Reordering Caught in the Act](http://preshing.com/20120515/memory-reordering-caught-in-the-act)一文中更加详细解释了memory reordering特性
 
 原文用到的测试代码GCC版本[ordering.cc](https://gist.github.com/Joinhack/2362552462f71d6d79ad)(已经支持macos), 可以用于重现运行时memory ordering特性.
 
 编译命令
+
+```shell
 $gcc -o ordering -O2 ordering.cc -lpthread
+```
 
 当USE_CPU_FENCE=0的时候程序没有加入memory barrier, 运行结果:
 
