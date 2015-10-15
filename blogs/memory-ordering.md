@@ -137,6 +137,8 @@ CPU运行时的Memory Ordering
 
 [Memory Reordering Caught in the Act](http://preshing.com/20120515/memory-reordering-caught-in-the-act)一文中更加详细解释了memory reordering特性
 
+为什么cpu需要执行时reordering呢？ 当然是为了更快。 现代cpu一般执行情况下每纳秒执行10几个指令，但是要从内存获取数据则需要几十个纳秒。因此，在不影响结果的情况下，cpu在遇到内存操作的时候会出现reorder。[Memory Barriers: a Hardware View for Software Hackers](http://www.rdrop.com/users/paulmck/scalability/paper/whymb.2010.06.07c.pdf)更加具体讲述了这个问题。
+
 原文用到的测试代码GCC版本[ordering.cc](https://gist.github.com/Joinhack/2362552462f71d6d79ad)(已经支持macos), 可以用于重现运行时memory ordering特性.
 
 编译命令
@@ -160,7 +162,7 @@ $gcc -o ordering -O2 ordering.cc -lpthread
 
 此时reorder被检测到了。
 
-为什么cpu需要执行时reorder， 当然是为了更快。 现代cpu一般执行情况下每纳秒执行10几个指令，但是要从内存获取数据则需要几十个纳秒。因此，在不影响结果的情况下，cpu在遇到内存操作的时候会出现reorder。[Memory Barriers: a Hardware View for Software Hackers](http://www.rdrop.com/users/paulmck/scalability/paper/whymb.2010.06.07c.pdf)更加具体讲述了这个问题。
+代码分析:
 
 共享变量
 
