@@ -160,6 +160,8 @@ $gcc -o ordering -O2 ordering.cc -lpthread
 
 此时reorder被检测到了。
 
+为什么cpu需要执行时reorder， 当然是为了更快。 现代cpu一般执行情况下每纳秒执行10几个指令，但是要从内存获取数据则需要几十个纳秒。因此，在不影响结果的情况下，cpu在遇到内存操作的时候会出现reorder。[Memory Barriers: a Hardware View for Software Hackers](http://www.rdrop.com/users/paulmck/scalability/paper/whymb.2010.06.07c.pdf)更加具体讲述了这个问题。
+
 共享变量
 
 ```cpp
