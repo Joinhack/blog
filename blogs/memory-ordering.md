@@ -32,7 +32,6 @@ asm volatile("mfence" ::: "memory");
 
 更多详细的需要查看[Memory Ordering](https://en.wikipedia.org/wiki/Memory_ordering)
 
-
 ------------------------------------------------
 
 
@@ -49,6 +48,7 @@ asm volatile("mfence" ::: "memory");
 	* CentOS Linux release 6.0 (Final)
 
 代码
+
 ```cpp
 int A, B;
 
