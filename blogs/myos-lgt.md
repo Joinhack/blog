@@ -61,6 +61,18 @@ Offset    | Name        |Description
 0..15     |Size         |整个GDT表的大小 2Bytes
 16..47    |Offset       |GDT的入口位置
 
+```asm
+gdtptr:
+	.word	(GdtLen - 1)			/* limit */
+	.long	0
+
+
+lgdt gdtptr	
+
+```
+
+使用lgdt来设置.
+
 
 ![GDT (from OSDev wiki)](https://raw.githubusercontent.com/Joinhack/blog/master/images/gdt-descriptor.png)
 
@@ -76,9 +88,23 @@ Offset    | Name        |Description
 52..55    |Flags        |4个段大小标记
 56..63    |Base         |Base的高2Bytes
 
+```asm
+.macro SEG_DESC Base, Limit, Attr
+	.2byte (\Limit & 0xFFFF)
+	.2byte (\Base & 0xFFFF)
+	.byte  ((\Base >> 16) & 0xFF)
+	.2byte ((\Attr & 0xF0FF) | ((\Limit >> 8) & 0x0F00))
+	.byte  ((\Base >> 24) & 0xFF)
+.endm
 
+......
 
+gdt:
+	GDT_DESC_NULL: SEG_DESC 0, 0, 0
+	GDT_DESC_C32: SEG_DESC 0, (c32len - 1), (0x9A | 0x4000)
+	GDT_DESC_VIDEO: SEG_DESC     0xB8000, 0xFFFF, (0x92)
+```
 
-
+定义一段宏帮助设定描述。gdt是自定义的全局描述表。
 
 
