@@ -88,6 +88,29 @@ Offset    | Name        |Description
 52..55    |Flags        |4个段大小标记
 56..63    |Base         |Base的高2Bytes
 
+这里比较让人迷惑的是BASE与LIMIT不是完整的内存表示，而是分散分布在里面。
+
+
+Base Address: 32bits基址 分布在在描述符中分成三块存在。 可以指向4G内存的任意地方。
+
+Limit: 20bits的限制， 由于是20bits所以一般情况限制最大值是1M， 但是可以通过设置页粒度值让限制由1M变成1M*4096(4G)
+
+![access and flags (from OSDev wiki)](https://raw.githubusercontent.com/Joinhack/blog/master/images/gdt-descriptor-flags2.png)
+
+Bit       | Name                 |Description   
+---       |---                   |--- 
+Pr        |Present               |1 selector 现在不可用， 0 可用.
+Privl     |Privilege Level       |3Bits特权级别标识.
+Ex        |Executable            |1 表示内存是代码区， 0表示是数据区.
+DC(code)  |Direction             |1 表示代码从低优先级开始执行 代码段有效.
+DC(data)  |Conforming            |1 端从下向上增加。 0 端从上向下增加.
+RW(code)  |Readable              |1 允许读，永远不允许写入
+RW(data)  |Readable              |1 允许写入，永远都能读
+Ac        |Accessed              |CPU使用此端的时候设置为1， 初始化是0
+Gr        |Granularity           |0 表示Limit的单位Byte, 1 limit单位是4096Bytes
+Sz        |Size                  |0 表示 16-bit 保护模式， 1 表示32位保护模式
+
+
 ```asm
 .macro SEG_DESC Base, Limit, Attr
 	.2byte (\Limit & 0xFFFF)
@@ -106,5 +129,7 @@ gdt:
 ```
 
 定义一段宏帮助设定描述。gdt是自定义的全局描述表。
+
+
 
 
