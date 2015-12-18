@@ -13,6 +13,14 @@ tags:
 内存一致性模型([Memory Consistency Models](http://www.cs.nmsu.edu/~pfeiffer/classes/573/notes/consistency.html))
 ------------------------------------------
 
+注解
+
+W(var)value: 将变量var赋值为value.
+
+R(var)value: 读取变量var的值是value.
+
+例子: W(x)1 将变量x赋值为1.  R(y)3 读取变量y的值为3
+
 
 严格一致性(Strict Consistency)
 ------------------------------------
@@ -30,9 +38,33 @@ Lamport对顺序一致性的定义:"the result of any execution is the same as i
 
 这里顺序一致性有2个含义
 
-	1. 全局观来讲 在读写循序一致的情况所有执行结果是一样的。
+	全局观来讲 在读写循序一致的情况所有执行结果是一样的。
+	单处理器情况下 顺序是被程序指定的。
 
-	2. 单处理器情况下 顺序是被程序指定的。
+
+
+内存一致性([Cache Coherence](https://en.wikipedia.org/wiki/Cache_coherence))
+--------------------------------
+
+cache coherence是指共享资源保存到每个cpu cache中的一致性。 
+
+![An illustration showing multiple caches of some memory, which acts as a shared resource](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cache_Coherency_Generic.png/370px-Cache_Coherency_Generic.png)
+
+图中上面的client已经将memory的数据加载到了cache中， 而下面的client修改memory， 这个时候上面的client只读到了cache的数据。而cache coherence就是来解决这种混乱的保持memory与cache的一致性。
+
+很多时候人们将内存一致性与顺序一致性视为一致的。但是并不是这样的。顺序一致性是全局内存操作的全局视觉，而内存一致性是个局部视觉。下面例子就满足内存一致性但是不满足顺序一致性。
+
+```
+P1:  W(x)1 W(y)2
+-----------------------
+P2:        R(x)0 R(x)2 R(x)1 R(y)0 R(y)1
+-----------------------
+P3:        R(y)0 R(y)1 R(x)0 R(x)1
+-----------------------
+P4: W(x)2 W(y)1
+```
+
+
 
 
 
