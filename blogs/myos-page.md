@@ -38,9 +38,9 @@ S     |Page Size       |也大小标志位, 1: 页表是4M 0: 4K
 A     |Accessed        |1 表示cpu正在访问 
 D     |Cache Disable   |cache禁止位，1 不允许cache
 W     |Write-Through   |write-through标志位
-U     |User/Supervisor |特权位
+U     |User/Supervisor |特权位, 1 全局访问， 0 只能是supervisor能够访问。
 R     |Read/Write      |读写标志位
-P     |Present         |页是否在物理地址
+P     |Present         |页是否在物理地址 1 在内存中， 0 被swapped。 如果在内存中能直接访问，如果被swapped， 访问时会报错。
 
 
 ![page table (from OSDev wiki)](https://raw.githubusercontent.com/Joinhack/blog/master/images/Page_table.png)
