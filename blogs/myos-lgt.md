@@ -26,6 +26,9 @@ Segment:Offset
 Segment 是段寄存器: CS, ES, DS, FS, GS
 
 
+![segment in real model ](https://raw.githubusercontent.com/Joinhack/blog/master/images/real_mode_mem_seg.jpeg)
+
+
 转换成物理地址公式
 ```
 PhysicalAddress = Segment * 16 + Offset
@@ -40,6 +43,9 @@ mov %ds:(0x20), %ax
 ```
 
 这里访问的物理地址就是0x7c0*0x10 + 0x20
+
+
+![segment in protect model ](https://raw.githubusercontent.com/Joinhack/blog/master/images/protected_mode_mem_seg.jpeg)
 
 
 保护模式的内存寻址(32bits)
