@@ -140,6 +140,12 @@ gdt:
 
 定义一段宏帮助设定描述。gdt是自定义的全局描述表。
 
+![selector](https://raw.githubusercontent.com/Joinhack/blog/master/images/selector.png)
+
+TI： 1表示此descriptor是ldt
+
+
+
 
 
 
