@@ -19,6 +19,8 @@ GDT全局描述表
 
 实模式中就有内存访问限制，要突破这个限制，计算机必须进入保护模式。
 
+[Intel 64 and IA-32 Architectures. Software Developer's Manual. Volume 3A](http://www.intel.com/content/www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html)的第二章对GDT进行了详细的描述。
+
 实模式中内存寻址才用方式:
 ```
 Segment:Offset
