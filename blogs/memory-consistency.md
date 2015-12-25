@@ -11,7 +11,7 @@ tags:
 
 
 内存一致性模型([Memory Consistency Models](http://www.cs.nmsu.edu/~pfeiffer/classes/573/notes/consistency.html))
-------------------------------------------
+=========================
 
 注解
 

@@ -10,7 +10,8 @@ tags:
 ---
 
 redis的hash表
-----------------
+=========================
+
 首先还是先说说hash表是什么？ 很多语言有不同的定义 java中的HashMap HashTable， golang中的map都是hash表的实现。大致原理如下：
 
 hash表添加KEY-VALUE

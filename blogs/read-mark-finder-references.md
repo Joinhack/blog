@@ -10,6 +10,7 @@ tags:
 ---
 
 保守GC(conservative collector) 的缺点
+=========================
 
 1.不能保证栈上当前值是否是指向堆(指针)，也就是会被误认. 文章[Finding References in Java™](http://citeseer.ist.psu.edu/viewdoc/download?doi=10.1.1.47.6924&rep=rep1&type=pdf) 有相关描述，原文" A
 conservative collector knows only that some region of memory may contain references, but doesn’t know whether or

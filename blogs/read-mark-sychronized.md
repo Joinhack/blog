@@ -10,6 +10,7 @@ tags:
 ---
 
 Java Object 标记头
+-------------------
 
 ![ScreenShot](https://raw.githubusercontent.com/Joinhack/blog/master/images/headmark.jpg)
 
